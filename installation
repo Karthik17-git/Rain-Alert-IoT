@@ -1,0 +1,76 @@
+Installation Process
+1️⃣ Hardware Setup
+
+Connect Rain Sensor Module:
+
+VCC → Arduino 5V
+
+GND → Arduino GND
+
+AO (Analog Output) → Arduino A0 pin
+
+Connect Buzzer/LED:
+
+Positive → Arduino Digital Pin 7
+
+Negative → Arduino GND
+
+(If LED, use a 220Ω resistor in series)
+
+2️⃣ Software Setup
+
+Install Arduino IDE from Arduino Official Website.
+
+Open Arduino IDE and select:
+
+Board: Arduino Uno
+
+Port: Your Arduino’s COM port (check Tools → Port)
+
+Copy and paste the code from your report into Arduino IDE:
+
+// Pin Definitions
+const int rainSensorPin = A0; // Analog pin connected to rain sensor
+const int buzzerPin = 7;      // Optional buzzer or LED
+
+// Rain threshold (adjust based on testing)
+const int rainThreshold = 500;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(rainSensorPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  int sensorValue = analogRead(rainSensorPin);
+
+  Serial.print("Rain Sensor Reading: ");
+  Serial.println(sensorValue);
+
+  if (sensorValue < rainThreshold) {
+    Serial.println("🌧 Rain Detected!");
+    digitalWrite(buzzerPin, HIGH); // Turn on buzzer/LED
+  } else {
+    Serial.println("☀ No Rain.");
+    digitalWrite(buzzerPin, LOW); // Turn off buzzer/LED
+  }
+
+  delay(2000); // Check every 2 seconds
+}
+
+3️⃣ Upload & Test
+
+Click ✔ Verify to compile the code.
+
+Click ⬆ Upload to send code to Arduino.
+
+Open Serial Monitor (Ctrl+Shift+M) to see sensor readings in real-time.
+
+Pour a small amount of water on the rain sensor — the buzzer/LED should activate.
+
+4️⃣ Calibration
+
+Adjust the rainThreshold value in the code based on your sensor’s sensitivity.
+
+Test in real rain or simulate with droplets to ensure accurate detection.
